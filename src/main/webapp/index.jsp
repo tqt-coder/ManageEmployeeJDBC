@@ -44,6 +44,7 @@
     <div class="app">
         <h2>List User</h2>
         <h4><%= request.getAttribute("msg") != null ? request.getAttribute("msg"): " "  %></h4>
+        <h4><c:out value="${param.msg_success}" /></h4>
         <table>
             <tr>
                 <th>ID</th>

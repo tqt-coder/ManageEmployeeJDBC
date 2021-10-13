@@ -32,7 +32,7 @@
         <h1>User Management</h1>
 
         <div class="move-page">
-            <a href="#" class="page-path">Add New User</a>
+            <a href="addEmployee.jsp" class="page-path">Add New User</a>
             <a href="index.jsp" class="page-path">List All User</a>
         </div>
     </div>

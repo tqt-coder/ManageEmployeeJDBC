@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql"  prefix="sql" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -132,16 +133,23 @@ body{
 
 </style>
 <body>
+ <sql:query dataSource="${mysql }" var="rs">
+ 	Select * from employee where id=?;
+ 	<sql:param value="${param.id}" />
+ </sql:query>
+  <c:forEach var="row" items="${rs.rows}" >
+
+
     <div class="app">
         <h2>Thông tin nhân viên</h2>
-        <form action="insertEmplyee.jsp?<%= request.getParameter("id") %>" method="Post" class="employee">
+        <form action='update.jsp?id=<c:out value="${param.id}"/>' method="Post" class="employee">
             <div class="from-register__infor ">
                 <p class="form-register__content ">Full name
-                    <span class="form-register__content-symbol">*</span>
+                  <span class="form-register__content-symbol">*</span>
                 </p>
                 <div class="form-register__containter">
                     <input type="text" rule="isRequired" placeholder="Enter first name" name="name"
-                        class="from-register__detail">
+                    value='<c:out value="${row.name }"></c:out>'      class="from-register__detail">
                     <span class="text-error"></span>
                 </div>
             </div>
@@ -150,8 +158,8 @@ body{
                     <span class="form-register__content-symbol">*</span>
                 </p>
                 <div class="form-register__containter">
-                    <input type="email" rule="isRequired|isEmail" placeholder="Enter first name" name="email"
-                        class="from-register__detail">
+                    <input type="text" rule="isRequired|isEmail" placeholder="Enter first name" name="email"
+                     value='<c:out value="${row.email }"></c:out>'    class="from-register__detail">
                     <span class="text-error"></span>
                 </div>
             </div>
@@ -162,13 +170,14 @@ body{
                 </p>
                 <div class="form-register__containter">
                     <input type="text" rule="isRequired" placeholder="Enter first name" name="country"
-                        class="from-register__detail">
+                 value='<c:out value="${row.country }"></c:out>'        class="from-register__detail">
                     <span class="text-error"></span>
                 </div>
             </div>
             <input type="submit" value="Register" class="form-register__btn">
         </form>
     </div>
+    </c:forEach>
 <script>
 const container = '.form-register__containter';
 const showError = '.text-error';
